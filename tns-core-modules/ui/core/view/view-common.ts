@@ -33,6 +33,12 @@ function ensureAnimationModule() {
     }
 }
 
+export function CSSType(type: string): ClassDecorator {
+    return (cls) => {
+        cls.prototype.cssType = type;
+    };
+}
+
 export function PseudoClassHandler(...pseudoClasses: string[]): MethodDecorator {
     const stateEventNames = pseudoClasses.map(s => ":" + s);
     const listeners = Symbol("listeners");
@@ -576,6 +582,9 @@ export abstract class ViewCommon extends ViewBase implements ViewDefinition {
             this._cssType = this.typeName.toLowerCase();
         }
         return this._cssType;
+    }
+    set cssType(type: string) {
+        this._cssType = type.toLowerCase();
     }
 
     get isLayoutRequired(): boolean {
