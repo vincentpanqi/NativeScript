@@ -61,6 +61,12 @@ export class FrameBase extends CustomLayoutView implements FrameDefinition {
         this._processNextNavigationEntry();
     }
 
+    @profile
+    public onUnloaded() {
+        super.onUnloaded();
+        this._popFromFrameStack();
+    }
+
     public canGoBack(): boolean {
         let backstack = this._backStack.length;
         let previousForwardNotInBackstack = false;
